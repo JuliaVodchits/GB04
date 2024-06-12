@@ -9,7 +9,18 @@ class Fighter():
 
     def change_weapon(self, new_weapon):
         self.weapon = new_weapon
-
+    def fight(self, monster):
+        if self.weapon is None:
+            print(f"Не выбрано оружие")
+            return 0
+        remaining_hit_points = self.weapon.attack(fighter, monster)
+        monster.set_hit_points(remaining_hit_points)
+        if remaining_hit_points > 0:
+            print(f"Воин {self.nickname} атаковал монстра {monster.get_name()} оружием {self.weapon.type}. "
+                  f"У монстра осталось {remaining_hit_points} ОЖ")
+            return 1
+        print(f"Воин {self.nickname} атаковал монстра {monster.get_name()} оружием {self.weapon.type} и победил!")
+        return 0
 
 # Monsters
 class Monster():
@@ -108,19 +119,6 @@ class Axe(Weapon):
         return remaining_hit_points
 
 
-def fighting_round(fighter: Fighter, monster: Monster):
-    if fighter.weapon is None:
-        print(f"Не выбрано оружие")
-        return 0
-    remaining_hit_points = fighter.weapon.attack(fighter, monster)
-    monster.set_hit_points(remaining_hit_points)
-    if remaining_hit_points > 0:
-        print(f"Воин {fighter.nickname} атаковал монстра {monster.get_name()} оружием {fighter.weapon.type}. "
-              f"У монстра осталось {remaining_hit_points} ОЖ")
-        return 1
-    print(f"Воин {fighter.nickname} атаковал монстра {monster.get_name()} оружием {fighter.weapon.type} и победил!")
-    return 0
-
 fighter = Fighter("Юлия", 6)
 ogre1 = Ogre("Петя")
 golem1 = Golem("Вася")
@@ -133,22 +131,23 @@ ogre1.view_info()
 
 result = 1
 while result == 1:
-    result = fighting_round(fighter, ogre1)
+    result = fighter.fight(ogre1)
+    # result = fighting_round(fighter, ogre1)
 
 fighter.change_weapon(sword1)
 result = 1
 while result == 1:
-    result = fighting_round(fighter, ogre1)
+    result = fighter.fight(ogre1)
 
 golem1.view_info()
 fighter.change_weapon(axe1)
 result = 1
 while result == 1:
-    result = fighting_round(fighter, golem1)
+    result = fighter.fight(golem1)
 
 
 ghost1.view_info()
 fighter.change_weapon(bow1)
 result = 1
 while result == 1:
-    result = fighting_round(fighter, ghost1)
+    result = fighter.fight(ghost1)
