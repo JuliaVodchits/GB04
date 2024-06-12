@@ -155,4 +155,4 @@ ghost1.view_info()
 fighter.change_weapon(bow1)
 result = 1
 while result == 1:
-    result = fighting_round(fighter, golem1)
+    result = fighting_round(fighter, ghost1)
