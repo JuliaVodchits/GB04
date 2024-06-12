@@ -59,17 +59,13 @@ class Ghost(Monster):
 
 # Weapons
 class Weapon(ABC):
-    def __init__(self, weapon_power):
-        self.weapon_power = weapon_power
-        self.type = ''
-
     @abstractmethod
     def attack(self, fighter, monster):
         pass
 
 class Sword(Weapon):
     def __init__(self, weapon_power=5):
-        super().__init__(weapon_power)
+        self.weapon_power = weapon_power
         self.type = 'Меч'
 
     def attack(self, fighter: Fighter, monster: Monster):
@@ -84,7 +80,7 @@ class Sword(Weapon):
 
 class Bow(Weapon):
     def __init__(self, weapon_power=4):
-        super().__init__(weapon_power)
+        self.weapon_power = weapon_power
         self.type = 'Лук'
 
     def attack(self, fighter: Fighter, monster: Monster):
@@ -99,7 +95,7 @@ class Bow(Weapon):
 
 class Axe(Weapon):
     def __init__(self, weapon_power=10):
-        super().__init__(weapon_power)
+        self.weapon_power = weapon_power
         self.type = 'Топор'
 
     def attack(self, fighter: Fighter, monster: Monster):
